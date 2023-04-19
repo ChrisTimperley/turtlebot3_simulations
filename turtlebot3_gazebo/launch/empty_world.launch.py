@@ -53,7 +53,7 @@ def generate_launch_description():
         PythonLaunchDescriptionSource(
             os.path.join(pkg_gazebo_ros, 'launch', 'gzclient.launch.py')
         ),
-        condition=IfCondition(gui),
+        condition=IfCondition(LaunchConfiguration('gui', default='true')),
     )
 
     robot_state_publisher_cmd = IncludeLaunchDescription(
