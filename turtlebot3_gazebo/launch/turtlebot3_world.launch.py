@@ -33,6 +33,8 @@ def generate_launch_description():
     x_pose = LaunchConfiguration('x_pose', default='-2.0')
     y_pose = LaunchConfiguration('y_pose', default='-0.5')
 
+    gui = DeclareLaunchArgument('gui', default_value='True')
+
     world = os.path.join(
         get_package_share_directory('turtlebot3_gazebo'),
         'worlds',
@@ -49,7 +51,8 @@ def generate_launch_description():
     gzclient_cmd = IncludeLaunchDescription(
         PythonLaunchDescriptionSource(
             os.path.join(pkg_gazebo_ros, 'launch', 'gzclient.launch.py')
-        )
+        ),
+        condition=IfCondition(LaunchConfiguration('gui', default='true')),
     )
 
     robot_state_publisher_cmd = IncludeLaunchDescription(
